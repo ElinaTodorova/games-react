@@ -6,15 +6,21 @@ export default function GamesCatalog() {
   const [allGames, setAllGames] = useState([]);
 
   useEffect(() => {
-    services.getAll().then(setAllGames);
+    services.getAll()
+    .then(result => setAllGames(result))
+    .catch(err => {
+        console.error(err);
+    })
   }, []);
+
+  console.log(allGames)
 
   return (
     <section id="catalog-page">
       <h1>All Games</h1>
       <div className="allGames">
         {allGames.map((game) => (
-          <Game key={game.id} />
+          <Game key={game._id} {...game}/>
         ))}
       </div>
 

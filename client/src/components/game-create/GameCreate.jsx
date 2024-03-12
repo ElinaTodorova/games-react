@@ -1,4 +1,5 @@
 import { useState } from "react";
+import * as service from "../../services/gameService.js";
 
 const initialForm = {
   title: "",
@@ -26,11 +27,11 @@ export default function GameCreate() {
   const submitHandler = (e) => {
     e.preventDefault();
 
-    console.log(newGame)
-  }
+    service.create(newGame);
+  };
   return (
     <section id="create-page" className="auth">
-      <form id="create" onSubmit={submitHandler} >
+      <form id="create" onSubmit={submitHandler}>
         <div className="container">
           <h1>Create Game</h1>
           <label htmlFor="leg-title">Legendary title:</label>
