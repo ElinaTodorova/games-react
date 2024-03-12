@@ -13,8 +13,6 @@ export default function GamesCatalog() {
     })
   }, []);
 
-  console.log(allGames)
-
   return (
     <section id="catalog-page">
       <h1>All Games</h1>

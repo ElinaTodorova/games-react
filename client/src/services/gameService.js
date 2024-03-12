@@ -11,3 +11,9 @@ export const getAll = async () => {
 export const create = async (data) => {
     await request.post(baseUrl, data);
 }
+
+export const getById = async (id) => {
+    const result = await request.get(`${baseUrl}/${id}`);
+
+    return result;
+}
