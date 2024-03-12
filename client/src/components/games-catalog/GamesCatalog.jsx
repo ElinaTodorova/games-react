@@ -18,7 +18,9 @@ export default function GamesCatalog() {
         ))}
       </div>
 
-      <h3 className="no-articles">No articles yet</h3>
+      {allGames.length === 0 && (
+        <h3 className="no-articles">No articles yet</h3>
+      )}
     </section>
   );
 }
