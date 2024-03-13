@@ -1,16 +1,23 @@
-export default function GameComments() {
+import PropTypes from "prop-types";
+
+export default function GameComments({ allComments }) {
   return (
     <div className="details-comments">
       <h2>Comments:</h2>
       <ul>
-        <li className="comment">
-          <p>Content: I rate this one quite highly.</p>
-        </li>
-        <li className="comment">
-          <p>Content: The best game.</p>
-        </li>
+        {allComments.map((comment) => (
+          <li className="comment" key={comment._id}>
+            <p>
+              {comment.username}: {comment.text}
+            </p>
+          </li>
+        ))}
       </ul>
-      <p className="no-comment">No comments.</p>
+      {allComments.length === 0 && <p className="no-comment">No comments.</p>}
     </div>
   );
 }
+
+GameComments.propTypes = {
+  allComments: PropTypes.array,
+};

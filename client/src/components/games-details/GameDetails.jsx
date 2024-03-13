@@ -15,31 +15,46 @@ export default function GameDetails() {
   const [game, setGame] = useState({});
   const { id } = useParams();
   const [newComment, setNewComment] = useState(initialFormComment);
+  const [allComments, setAllComments] = useState([]);
+
 
   useEffect(() => {
     services
       .getById(id)
       .then((result) => setGame(result))
       .catch((err) => console.error(err));
+
+      commentSer
+      .getAll(id)
+      .then((result) => setAllComments(result))
+      .catch((err) => console.error(err));
   }, [id]);
+
+  const resetForm = () => {
+    setNewComment(initialFormComment);
+  }
 
   const changeValuesHandler = (e) => {
     setNewComment((state) => ({ ...state, [e.target.name]: e.target.value }));
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
 
-    commentSer.create(game._id, newComment.text);
+    const newComm = await commentSer.create(game._id, newComment.text, newComment.username);
+    setAllComments((state) => [...state, newComm])
+    resetForm();
   };
 
-  console.log(newComment)
+  console.log(allComments);
   return (
     <section id="game-details">
       <h1>Game Details</h1>
       <div className="info-section">
         <GameMainDetails {...game} />
-        <GameComments />
+        <GameComments
+          allComments={allComments}
+        />
         <CreateComment
           username={newComment.username}
           text={newComment.text}
