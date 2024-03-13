@@ -2,24 +2,65 @@ import { useEffect, useState } from "react";
 import * as services from "../../services/gameService.js";
 import { useParams } from "react-router-dom";
 import GameMainDetails from "./game-main-details/GameMainDetails.jsx";
+import * as commentSer from "../../services/commentService.js";
+import GameComments from "./game-comments/GameComments.jsx";
+import CreateComment from "./create-comment/CreateComment.jsx";
+
+const initialFormComment = {
+  username: "",
+  text: "",
+};
 
 export default function GameDetails() {
   const [game, setGame] = useState({});
   const { id } = useParams();
+  const [newComment, setNewComment] = useState(initialFormComment);
+  const [allComments, setAllComments] = useState([]);
+
 
   useEffect(() => {
     services
       .getById(id)
       .then((result) => setGame(result))
       .catch((err) => console.error(err));
+
+      commentSer
+      .getAll(id)
+      .then((result) => setAllComments(result))
+      .catch((err) => console.error(err));
   }, [id]);
 
-  console.log(game)
+  const resetForm = () => {
+    setNewComment(initialFormComment);
+  }
+
+  const changeValuesHandler = (e) => {
+    setNewComment((state) => ({ ...state, [e.target.name]: e.target.value }));
+  };
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+
+    const newComm = await commentSer.create(game._id, newComment.text, newComment.username);
+    setAllComments((state) => [...state, newComm])
+    resetForm();
+  };
+
+  console.log(allComments);
   return (
     <section id="game-details">
       <h1>Game Details</h1>
       <div className="info-section">
         <GameMainDetails {...game} />
+        <GameComments
+          allComments={allComments}
+        />
+        <CreateComment
+          username={newComment.username}
+          text={newComment.text}
+          changeValuesHandler={changeValuesHandler}
+          submitHandler={submitHandler}
+        />
         <div className="buttons">
           <a href="#" className="button">
             Edit
