@@ -1,5 +1,8 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import * as service from "../../services/gameService.js";
+import Paths from "../../paths/paths.js";
 
 const initialForm = {
   title: "",
@@ -11,6 +14,7 @@ const initialForm = {
 
 export default function GameCreate() {
   const [newGame, setNewGame] = useState(initialForm);
+  const navigate = useNavigate();
 
   const changeValuesHandler = (e) => {
     let value = "";
@@ -28,6 +32,8 @@ export default function GameCreate() {
     e.preventDefault();
 
     service.create(newGame);
+    navigate(Paths.Home)
+
   };
   return (
     <section id="create-page" className="auth">
