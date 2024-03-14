@@ -9,6 +9,7 @@ import GamesHome from "./components/games-home/GamesHome.jsx";
 import Header from "./components/header/Header.jsx";
 import Login from "./components/login/Login.jsx";
 import { AuthProvider } from "./contexts/authContext.jsx";
+import Register from "./components/register/Register.jsx";
 
 function App() {
   
@@ -22,6 +23,8 @@ function App() {
           <Route path={Paths.CreateGame} element={<GameCreate />} />
           <Route path={Paths.Game} element={<GameDetails />} />
           <Route path={Paths.Login} element={<Login />} />
+          <Route path={Paths.Register} element={<Register />} />
+
         </Routes>
       </div>
     </AuthProvider>

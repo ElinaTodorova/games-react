@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
-import { useAuthContext } from "../../contexts/authContext.jsx";
 
 import Paths from "../../paths/paths.js";
+import { useAuthContext } from "../../contexts/useAuth.js";
 
 export default function Header() {
   const { isAuthenticated } = useAuthContext();
+  // console.log(isAuthenticated)
   return (
     <header>
       <h1>
@@ -24,7 +25,7 @@ export default function Header() {
         {!isAuthenticated && (
           <div id="guest">
             <Link to={Paths.Login}>Login</Link>
-            <Link href="#">Register</Link>
+            <Link to={Paths.Register}>Register</Link>
           </div>
         )}
       </nav>
