@@ -17,14 +17,13 @@ export default function GameDetails() {
   const [newComment, setNewComment] = useState(initialFormComment);
   const [allComments, setAllComments] = useState([]);
 
-
   useEffect(() => {
     services
       .getById(id)
       .then((result) => setGame(result))
       .catch((err) => console.error(err));
 
-      commentSer
+    commentSer
       .getAll(id)
       .then((result) => setAllComments(result))
       .catch((err) => console.error(err));
@@ -32,7 +31,7 @@ export default function GameDetails() {
 
   const resetForm = () => {
     setNewComment(initialFormComment);
-  }
+  };
 
   const changeValuesHandler = (e) => {
     setNewComment((state) => ({ ...state, [e.target.name]: e.target.value }));
@@ -41,8 +40,12 @@ export default function GameDetails() {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    const newComm = await commentSer.create(game._id, newComment.text, newComment.username);
-    setAllComments((state) => [...state, newComm])
+    const newComm = await commentSer.create(
+      game._id,
+      newComment.text,
+      newComment.username
+    );
+    setAllComments((state) => [...state, newComm]);
     resetForm();
   };
 
@@ -52,23 +55,21 @@ export default function GameDetails() {
       <h1>Game Details</h1>
       <div className="info-section">
         <GameMainDetails {...game} />
-        <GameComments
-          allComments={allComments}
-        />
+        <GameComments allComments={allComments} />
         <CreateComment
           username={newComment.username}
           text={newComment.text}
           changeValuesHandler={changeValuesHandler}
           submitHandler={submitHandler}
         />
-        <div className="buttons">
-          <a href="#" className="button">
-            Edit
-          </a>
-          <a href="#" className="button">
-            Delete
-          </a>
-        </div>
+      </div>
+      <div className="buttons">
+        <a href="#" className="button">
+          Edit
+        </a>
+        <a href="#" className="button">
+          Delete
+        </a>
       </div>
     </section>
   );
