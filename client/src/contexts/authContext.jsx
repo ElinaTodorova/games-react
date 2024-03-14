@@ -9,25 +9,30 @@ export const useAuthContext = () => {
   return useContext(AuthContext);
 };
 
-export function AuthProvider(children) {
+export function AuthProvider({ children }) {
   const [auth, setAuth] = useState({});
   const navigate = useNavigate();
 
   const loginHandler = async (values) => {
-    const result = await authService.login(values);
-
-    setAuth(result);
-
-    navigate(Paths.Home);
-    console.log(auth)
+    try {
+      const result = await authService.login(values.email, values.password);
+      setAuth(result);
+      localStorage.setItem("access_token", result.accessToken);
+      navigate(Paths.Home);
+    } catch {
+      (err) => console.error(err);
+    }
   };
 
   const data = {
-    auth,
-    loginHandler
-  }
+    loginHandler,
+    // registerSubmitHandler,
+    // logoutHandler,
+    username: auth.username || auth.email,
+    email: auth.email,
+    userId: auth._id,
+    isAuthenticated: !!auth.accessToken,
+  };
 
-  return(
-    <AuthContext.Provider value={data}>{children}</AuthContext.Provider>
-  )
+  return <AuthContext.Provider value={data}>{children}</AuthContext.Provider>;
 }

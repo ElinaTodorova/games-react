@@ -11,6 +11,7 @@ import Login from "./components/login/Login.jsx";
 import { AuthProvider } from "./contexts/authContext.jsx";
 
 function App() {
+  
   return (
     <AuthProvider>
       <div id="box">
