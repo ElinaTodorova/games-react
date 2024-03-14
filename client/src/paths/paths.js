@@ -3,7 +3,8 @@ const Paths = {
     Games : "/games",
     CreateGame : "/games/create",
     Game : "/games/:id",
-    Login : "/login"
+    Login : "/login", 
+    Register: "/register"
 }
 
 export default Paths;
