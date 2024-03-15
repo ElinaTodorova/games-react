@@ -26,7 +26,6 @@ export function AuthProvider({ children }) {
   const registerHandler = async(values) => {
     try {
       const result = await authService.register(values);
-
       setAuth(result);
       localStorage.setItem("access_token", result.accessToken);
       navigate(Paths.Home);
@@ -35,9 +34,7 @@ export function AuthProvider({ children }) {
     }
 
   }
-  
-  
-
+    
   const data = {
     loginHandler,
     registerHandler,
