@@ -10,9 +10,9 @@ import Header from "./components/header/Header.jsx";
 import Login from "./components/login/Login.jsx";
 import { AuthProvider } from "./contexts/authContext.jsx";
 import Register from "./components/register/Register.jsx";
+import Logout from "./components/logout/Logout.jsx";
 
 function App() {
-  
   return (
     <AuthProvider>
       <div id="box">
@@ -24,7 +24,7 @@ function App() {
           <Route path={Paths.Game} element={<GameDetails />} />
           <Route path={Paths.Login} element={<Login />} />
           <Route path={Paths.Register} element={<Register />} />
-
+          <Route path={Paths.Logout} element={<Logout />} />
         </Routes>
       </div>
     </AuthProvider>
