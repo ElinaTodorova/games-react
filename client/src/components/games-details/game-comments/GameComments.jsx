@@ -8,7 +8,7 @@ export default function GameComments({ allComments }) {
         {allComments.map((comment) => (
           <li className="comment" key={comment._id}>
             <p>
-              {comment.username}: {comment.text}
+              {comment.author.username}: {comment.text}
             </p>
           </li>
         ))}
@@ -20,4 +20,5 @@ export default function GameComments({ allComments }) {
 
 GameComments.propTypes = {
   allComments: PropTypes.array,
+  username: PropTypes.string
 };

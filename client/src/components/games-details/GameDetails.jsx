@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
-import * as services from "../../services/gameService.js";
 import { useParams } from "react-router-dom";
-import GameMainDetails from "./game-main-details/GameMainDetails.jsx";
+import { useAuthContext } from "../../contexts/useAuth.js";
+
+import * as services from "../../services/gameService.js";
 import * as commentSer from "../../services/commentService.js";
+
+import GameMainDetails from "./game-main-details/GameMainDetails.jsx";
 import GameComments from "./game-comments/GameComments.jsx";
 import CreateComment from "./create-comment/CreateComment.jsx";
 
@@ -16,6 +19,7 @@ export default function GameDetails() {
   const { id } = useParams();
   const [newComment, setNewComment] = useState(initialFormComment);
   const [allComments, setAllComments] = useState([]);
+  const { username, isAuthenticated } = useAuthContext();
 
   useEffect(() => {
     services
@@ -40,24 +44,28 @@ export default function GameDetails() {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    const newComm = await commentSer.create(
-      game._id,
-      newComment.text,
-      newComment.username
-    );
-    setAllComments((state) => [...state, newComm]);
-    resetForm();
+    if(isAuthenticated) {
+      const newComm = await commentSer.create(
+        game._id,
+        newComment.text,
+        username
+      );
+      setAllComments((state) => [...state, newComm]);
+      resetForm();
+    }
+   
   };
 
-  console.log(allComments);
+  console.log(allComments)
+
   return (
     <section id="game-details">
       <h1>Game Details</h1>
       <div className="info-section">
         <GameMainDetails {...game} />
-        <GameComments allComments={allComments} />
+        <GameComments allComments={allComments} username={username} />
         <CreateComment
-          username={newComment.username}
+          // username={newComment.username}
           text={newComment.text}
           changeValuesHandler={changeValuesHandler}
           submitHandler={submitHandler}
