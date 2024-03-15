@@ -16,3 +16,4 @@ export const register = async (userInfo) => {
 
     return result;
 }
+ 
