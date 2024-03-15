@@ -18,7 +18,7 @@ export default function Header() {
         {isAuthenticated && (
           <div id="user">
             <Link to={Paths.CreateGame}>Create Game</Link>
-            <Link to="#">Logout</Link>
+            <Link to={Paths.Logout}>Logout</Link>
           </div>
         )}
 

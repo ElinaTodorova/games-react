@@ -34,11 +34,17 @@ export function AuthProvider({ children }) {
     }
 
   }
+
+  const logoutHandler = async () => {
+    setAuth({});
+
+    localStorage.removeItem('access_token')
+  }
     
   const data = {
     loginHandler,
     registerHandler,
-    // logoutHandler,
+    logoutHandler,
     username: auth.username || auth.email,
     email: auth.email,
     userId: auth._id,
