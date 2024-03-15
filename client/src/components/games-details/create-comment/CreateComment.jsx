@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 
 export default function CreateComment({
-  username,
   text,
   submitHandler,
   changeValuesHandler,
@@ -10,13 +9,6 @@ export default function CreateComment({
     <article className="create-comment">
       <label>Add new comment:</label>
       <form className="form" onSubmit={submitHandler}>
-        <input
-          type="text"
-          name="username"
-          placeholder="Username"
-          value={username}
-          onChange={changeValuesHandler}
-        />
         <textarea
           name="text"
           placeholder="Comment......"
@@ -30,7 +22,6 @@ export default function CreateComment({
 }
 
 CreateComment.propTypes = {
-  username: PropTypes.string,
   text: PropTypes.string,
   changeValuesHandler: PropTypes.func,
   submitHandler: PropTypes.func,

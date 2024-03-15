@@ -25,6 +25,6 @@ GameMainDetails.propTypes = {
   imageUrl: PropTypes.string,
   category: PropTypes.string,
   title: PropTypes.string,
-  maxLevel: PropTypes.number,
+  maxLevel: PropTypes.string,
   summary: PropTypes.string,
 };
