@@ -1,19 +1,15 @@
 import PropTypes from "prop-types";
 
-export default function CreateComment({
-  text,
-  submitHandler,
-  changeValuesHandler,
-}) {
+export default function CreateComment({ comment, onChange, onSubmit }) {
   return (
     <article className="create-comment">
       <label>Add new comment:</label>
-      <form className="form" onSubmit={submitHandler}>
+      <form className="form" onSubmit={onSubmit}>
         <textarea
-          name="text"
+          name="comment"
           placeholder="Comment......"
-          onChange={changeValuesHandler}
-          value={text}
+          onChange={onChange}
+          value={comment}
         ></textarea>
         <input className="btn submit" type="submit" value="Add Comment" />
       </form>
@@ -22,7 +18,7 @@ export default function CreateComment({
 }
 
 CreateComment.propTypes = {
-  text: PropTypes.string,
-  changeValuesHandler: PropTypes.func,
-  submitHandler: PropTypes.func,
+  comment: PropTypes.string,
+  onChange: PropTypes.func,
+  onSubmit: PropTypes.func,
 };
