@@ -2,13 +2,14 @@ import PropTypes from "prop-types";
 
 export default function GameComments({ allComments }) {
   return (
+    
     <div className="details-comments">
       <h2>Comments:</h2>
       <ul>
-        {allComments.map((comment) => (
-          <li className="comment" key={comment._id}>
+        {allComments.map(({ _id, text, author: { username } }) => (
+          <li className="comment" key={_id}>
             <p>
-              {comment.author.username}: {comment.text}
+              {username}: {text}
             </p>
           </li>
         ))}
@@ -20,5 +21,4 @@ export default function GameComments({ allComments }) {
 
 GameComments.propTypes = {
   allComments: PropTypes.array,
-  username: PropTypes.string
 };
