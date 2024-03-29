@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAuthContext } from "../../contexts/useAuth.js";
 import { useReducer } from "react";
 
@@ -14,6 +14,7 @@ import GameComments from "./game-comments/GameComments.jsx";
 import CreateComment from "./create-comment/CreateComment.jsx";
 import { pathToUrl } from "../../utils/pathToUrl.js";
 import Paths from "../../paths/paths.js";
+import GamesCatalog from "../games-catalog/GamesCatalog.jsx";
 
 const initialFormComment = {
   username: "",
@@ -28,6 +29,7 @@ export default function GameDetails() {
   const [comments, dispatch] = useReducer(reducer, []);
   const { username, isAuthenticated } = useAuthContext();
   const { userId } = useAuthContext();
+  const navigate = useNavigate();
 
   useEffect(() => {
     services
@@ -61,6 +63,12 @@ export default function GameDetails() {
     });
   };
 
+  const onClickDeleteGame = async () => {
+    await services.deleteGame(id);
+
+    navigate(Paths.Games);
+  };
+
   const { values, changeHandler, onSubmit } = useForm(addCommentHandler, {
     comment: "",
   });
@@ -73,12 +81,10 @@ export default function GameDetails() {
 
         {userId === game._ownerId && (
           <div className="buttons">
-            <Link to={pathToUrl(Paths.EditGame, {id})} className="button">
+            <Link to={pathToUrl(Paths.EditGame, { id })} className="button">
               Edit
             </Link>
-            <a href="#" className="button">
-              Delete
-            </a>
+            <button className="button" onClick={onClickDeleteGame}>Delete</button>
           </div>
         )}
 
