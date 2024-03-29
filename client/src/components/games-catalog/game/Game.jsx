@@ -1,5 +1,7 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { pathToUrl } from "../../../utils/pathToUrl.js";
+import Paths from "../../../paths/paths.js";
 
 export default function Game({ imageUrl, category, title, _id }) {
   return (
@@ -8,7 +10,7 @@ export default function Game({ imageUrl, category, title, _id }) {
         <img src={imageUrl} alt={title} />
         <h6>{category}</h6>
         <h2>{title}</h2>
-        <Link to={`/games/${_id}`} className="details-button">
+        <Link to={pathToUrl(Paths.Details, {_id})} className="details-button">
           Details
         </Link>
       </div>

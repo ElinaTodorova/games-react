@@ -21,7 +21,7 @@ function App() {
           <Route path={Paths.Home} element={<GamesHome />} />
           <Route path={Paths.Games} element={<GamesCatalog />} />
           <Route path={Paths.CreateGame} element={<GameCreate />} />
-          <Route path={Paths.Game} element={<GameDetails />} />
+          <Route path={Paths.Details} element={<GameDetails />} />
           <Route path={Paths.Login} element={<Login />} />
           <Route path={Paths.Register} element={<Register />} />
           <Route path={Paths.Logout} element={<Logout />} />
