@@ -1,16 +1,18 @@
 import { Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./contexts/authContext.jsx";
 
 import Paths from "./paths/paths.js";
 
 import GameCreate from "./components/game-create/GameCreate.jsx";
+
 import GamesCatalog from "./components/games-catalog/GamesCatalog.jsx";
 import GameDetails from "./components/games-details/GameDetails.jsx";
 import GamesHome from "./components/games-home/GamesHome.jsx";
 import Header from "./components/header/Header.jsx";
 import Login from "./components/login/Login.jsx";
-import { AuthProvider } from "./contexts/authContext.jsx";
 import Register from "./components/register/Register.jsx";
 import Logout from "./components/logout/Logout.jsx";
+import GameEdit from "./components/game-edit/GameEdit.jsx";
 
 function App() {
   return (
@@ -25,6 +27,7 @@ function App() {
           <Route path={Paths.Login} element={<Login />} />
           <Route path={Paths.Register} element={<Register />} />
           <Route path={Paths.Logout} element={<Logout />} />
+          <Route path={Paths.EditGame} element={<GameEdit />} />
         </Routes>
       </div>
     </AuthProvider>

@@ -1,3 +1,4 @@
+import GameDetails from '../components/games-details/GameDetails.jsx';
 import * as request from '../lib/request.js';
 
 const baseUrl = 'http://localhost:3030/data/games';
@@ -14,6 +15,12 @@ export const create = async (data) => {
 
 export const getById = async (id) => {
     const result = await request.get(`${baseUrl}/${id}`);
+
+    return result;
+}
+
+export const edit = async (gameId, gameData) => {
+    const result = await request.put(`${baseUrl}/${gameId}`, gameData);
 
     return result;
 }

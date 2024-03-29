@@ -3,5 +3,6 @@ export const pathToUrl = (path, params) => {
         return result.replace(`:${param}`, params[param]);
     }, path);
 
+   
     return url;
 };
