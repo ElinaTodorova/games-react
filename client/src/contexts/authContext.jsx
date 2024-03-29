@@ -1,7 +1,7 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "./useAuth.js";
 
+import usePersistedState from "../hooks/usePersistedState.js";
 import PropTypes from "prop-types";
 
 import * as authService from "../services/authService.js";
@@ -9,8 +9,9 @@ import Paths from "../paths/paths.js";
 
 
 export function AuthProvider({ children }) {
-  const [auth, setAuth] = useState({});
+  const [auth, setAuth] = usePersistedState('auth', {});
   const navigate = useNavigate();
+
 
   const loginHandler = async (values) => {
     try {
