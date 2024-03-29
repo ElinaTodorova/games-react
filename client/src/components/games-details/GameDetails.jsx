@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useAuthContext } from "../../contexts/useAuth.js";
 import { useReducer } from "react";
 
@@ -12,6 +12,8 @@ import * as commentSer from "../../services/commentService.js";
 import GameMainDetails from "./game-main-details/GameMainDetails.jsx";
 import GameComments from "./game-comments/GameComments.jsx";
 import CreateComment from "./create-comment/CreateComment.jsx";
+import { pathToUrl } from "../../utils/pathToUrl.js";
+import Paths from "../../paths/paths.js";
 
 const initialFormComment = {
   username: "",
@@ -25,6 +27,7 @@ export default function GameDetails() {
   // const [allComments, setAllComments] = useState([]);
   const [comments, dispatch] = useReducer(reducer, []);
   const { username, isAuthenticated } = useAuthContext();
+  const { userId } = useAuthContext();
 
   useEffect(() => {
     services
@@ -56,20 +59,29 @@ export default function GameDetails() {
       type: "ADD_COMMENT",
       payload: newComment,
     });
-
-
   };
 
   const { values, changeHandler, onSubmit } = useForm(addCommentHandler, {
     comment: "",
   });
 
-
   return (
     <section id="game-details">
       <h1>Game Details</h1>
       <div className="info-section">
         <GameMainDetails {...game} />
+
+        {userId === game._ownerId && (
+          <div className="buttons">
+            <Link to={pathToUrl(Paths.EditGame, {id})} className="button">
+              Edit
+            </Link>
+            <a href="#" className="button">
+              Delete
+            </a>
+          </div>
+        )}
+
         <GameComments allComments={comments} />
         <CreateComment
           comment={values.comment}
@@ -77,14 +89,6 @@ export default function GameDetails() {
           onSubmit={onSubmit}
           isAuthenticated={isAuthenticated}
         />
-      </div>
-      <div className="buttons">
-        <a href="#" className="button">
-          Edit
-        </a>
-        <a href="#" className="button">
-          Delete
-        </a>
       </div>
     </section>
   );

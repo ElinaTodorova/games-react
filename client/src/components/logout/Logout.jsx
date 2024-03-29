@@ -18,7 +18,7 @@ export default function Logout() {
       })
       .catch(() => {    
         logoutHandler();
-        navigate(Paths.Home);
+        navigate(Paths.Login);
       });
   }, []);
 
