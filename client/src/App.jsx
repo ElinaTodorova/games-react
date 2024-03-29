@@ -13,6 +13,7 @@ import Login from "./components/login/Login.jsx";
 import Register from "./components/register/Register.jsx";
 import Logout from "./components/logout/Logout.jsx";
 import GameEdit from "./components/game-edit/GameEdit.jsx";
+import AuthGuard from "./guards/AuthGuard.jsx";
 
 function App() {
   return (
@@ -22,12 +23,14 @@ function App() {
         <Routes>
           <Route path={Paths.Home} element={<GamesHome />} />
           <Route path={Paths.Games} element={<GamesCatalog />} />
-          <Route path={Paths.CreateGame} element={<GameCreate />} />
           <Route path={Paths.Details} element={<GameDetails />} />
           <Route path={Paths.Login} element={<Login />} />
           <Route path={Paths.Register} element={<Register />} />
           <Route path={Paths.Logout} element={<Logout />} />
-          <Route path={Paths.EditGame} element={<GameEdit />} />
+          <Route element={<AuthGuard />}>
+            <Route path={Paths.CreateGame} element={<GameCreate />} />
+            <Route path={Paths.EditGame} element={<GameEdit />} />
+          </Route>
         </Routes>
       </div>
     </AuthProvider>
